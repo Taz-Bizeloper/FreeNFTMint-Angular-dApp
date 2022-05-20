@@ -1,0 +1,56 @@
+#appToolbar {
+    position: absolute;
+    top: 4px;
+    right: auto;
+    left: 4px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    border-radius: 50%;
+    background-color: transparent !important;
+    z-index: 2;
+}
+
+.closeMenuBtn {
+    background-color: transparent;
+    border: none;
+}
+
+.openMenu {
+    display: inherit;
+    padding: 0;
+}
+
+.openMenu i {
+    font-size: 25pt;
+    left: -4px !important;
+    position: relative;
+}
+
+.openMenu,
+.openMenu:focus,
+.openMenu:active,
+.closeMenuBtn,
+.closeMenuBtn:focus,
+.closeMenuBtn:active {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.menuContainer {
+    position: relative;
+    max-width: 600px;
+    width: 50%;
+}
+
+
+
+
+@media (max-width:972px) {
+    .menuContainer {
+        width: 100%;
+    }
+}

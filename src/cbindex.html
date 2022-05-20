@@ -1,0 +1,145 @@
+<!--This html page is meant to be published separately on a different domain for deep-link in-app signing for Android and iOS Apps -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Coinbase In App Verification</title>
+    <meta name="description" content="Verify Coinbase Wallet For dApps">
+    <base href="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="ethers.js"></script>
+    <!--Download and set latest ethers.js file next to this index page --->
+    <script src="cb-mint-networks.js"></script>
+    <script>
+        sign = async () => {
+            try {
+                var coinbaseProvider = new ethers.providers.Web3Provider(window.ethereum)
+                var signer = coinbaseProvider.getSigner();
+                var address = await signer.getAddress();
+                var msg = ethers.utils.toUtf8Bytes("Verify wallet address ownership for " + appName);
+                var signedMsg = await coinbaseProvider.send("personal_sign", [ethers.utils.hexlify(msg), address.toLowerCase()]);
+                console.log(signedMsg);
+                window.location.href = cbUrl + "?sign=" + signedMsg;
+
+            } catch (e) {
+                window.location.href = window.location.href + "#rejected"; //needed because coinbase will refresh the page and cause another mint request
+                alert("You need to verify ownership by signing the transaction to use " + appName);
+                window.location.href = cbUrl;
+            }
+        };
+
+        startCoinbaseAppSign = async () => {
+
+            try {
+                await window.ethereum.enable();
+                setTimeout(() => {
+                    sign();
+                }, 500)
+            } catch (e) {
+                alert("error " + e);
+            }
+        }
+
+        startCoinbaseAppMint = async () => {
+            try {
+                var wallet = {};
+                await window.ethereum.enable();
+                var coinbaseProvider = new ethers.providers.Web3Provider(window.ethereum)
+                var signer = coinbaseProvider.getSigner();
+                wallet.network = await coinbaseProvider.getNetwork();
+                if (wallet.network.name == "homestead") {
+                    wallet.network.name = "mainnet";
+                }
+                if (!mintNetworks[wallet.network.name]) {
+                    alert("Connected to unknown network by dApp");
+                    return;
+                }
+
+                var address = await signer.getAddress();
+                var smartContract = new ethers.Contract(mintNetworks[wallet.network.name].contractAddress, mintNetworks[wallet.network.name].abi, signer);
+                var url = "ipfs://" + ipfs + "/metadata.json";
+                try {
+                    var tx = await smartContract.mint(address, url, qty);
+                    window.location.href = window.location.href + "#minted"; //needed because coinbase will refresh the page and cause another mint request
+                    window.location.href = cbUrl + "?minted=" + tx.hash;
+                }
+                catch (ex) {
+                    alert("Transaction rejected.");
+                    //return back to app to allow resend
+                    window.location.href = window.location.href + "#rejected"; //needed because coinbase will refresh the page and cause another mint request
+                    window.location.href = cbUrl;
+                }
+            } catch (ex) {
+                alert("Transaction rejected.");
+                //return back to app to allow resend
+                window.location.href = window.location.href + "#rejected"; //needed because coinbase will refresh the page and cause another mint request
+                window.location.href = cbUrl;
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <div style="text-align:center;margin-top: 20px;">
+        <h2 id="title">
+        </h2>
+        <br />
+        <img src="https://freenftmint.app/assets/images/logo.png" style="width: 100%;max-width: 300px;" />
+        <br />
+    </div>
+
+    <script>
+
+        const appName = "Free NFT Mint App";
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const verify = urlSearchParams.get("verify");
+        const mint = urlSearchParams.get("mint");
+        const ipfs = urlSearchParams.get("ipfs");
+        const qty = urlSearchParams.get("qty");
+
+        var cbUrl = "";
+        if (navigator.userAgent.toLowerCase().indexOf("android") != -1) {
+            //android deep-link back to the App using the custom scheme passed into the coinbase URL
+            cbUrl = "bizelop://FreeNFTMint.app";
+        }
+        else {
+            //iOS Universal link back to the App
+            cbUrl = "https://FreeNFTMint.app";
+        }
+
+        try {
+
+            if (appName == null) {
+                alert("App name was not provided. Please include the 'name' parameter");
+            }
+
+            if (appName != null && cbUrl != null) {
+                if (window.location.href.includes("#rejected")) {
+                    document.getElementById("title").innerHTML = "Transaction rejected please return back to " + appName;
+                }
+                else if (verify === 'true') {
+                    document.getElementById("title").innerHTML = "Sign the message to verify address ownership. You will then be redirected back to " + appName;
+                    startCoinbaseAppSign();
+                }
+                else if (mint === 'true') {
+                    if (window.location.href.includes("#minted")) {
+                        //minted and went back to the App. need to check so if coinbase opens again it does not try to request another mint
+                        document.getElementById("title").innerHTML = "✅ Minted " + appName + ". Please return back to App";
+                    }
+                    else {
+                        document.getElementById("title").innerHTML = "Approve and mint for " + appName;
+                        startCoinbaseAppMint();
+                    }
+                }
+            }
+        }
+        catch (ex) {
+            alert(ex);
+        }
+    </script>
+</body>
+
+</html>

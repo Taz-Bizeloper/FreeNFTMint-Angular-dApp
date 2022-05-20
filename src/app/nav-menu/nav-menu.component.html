@@ -1,0 +1,177 @@
+<div class="container menuContainer">
+    <div id="appToolbar" class="toolbar fw-bold">
+        <button class="btn openMenu" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+</div>
+
+<div class="offcanvas offcanvas-start w-100" style="max-width:300px;" tabindex="-1" id="offcanvas"
+    data-bs-keyboard="false" data-bs-backdrop="false">
+    <div class="offcanvas-header">
+        <h6 class="mb-0">
+            Free NFT Mint
+        </h6>
+        <button type="button" class="btn closeMenuBtn" data-bs-dismiss="offcanvas" aria-label="Close"><i
+                class="fa-solid fa-arrow-left"></i></button>
+    </div>
+    <div class="offcanvas-body p-0 overflow-x-hidden">
+        <div class="row p-2 pt-0">
+            <div class="col-12 sectionHeader">
+                <i class="fa-solid  fa-info-circle"></i> How it works
+            </div>
+            <div class="col-6">
+                <button class="btn btn-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    Open Steps
+                </button>
+            </div>
+        </div>
+
+
+        <div class="row p-2 pt-4">
+            <div class="col-12 sectionHeader">
+                <i class="fa-solid fa-file-circle-check"></i> Verified smart contract
+            </div>
+            <div class="col-6">
+                <a href="https://{{rootVars.selectedMintNetwork.chainId == 1 ? '':rootVars.selectedMintNetwork.name+'.'}}etherscan.io/address/{{rootVars.selectedMintNetwork.contractAddress}}"
+                    target="_blank" class="btn btn-primary btn-sm w-100">
+                    View Contract
+                </a>
+            </div>
+        </div>
+
+
+        <div class="row p-2 pt-4">
+            <div class="col-12 sectionHeader">
+                <i class="fa-solid fa-network-wired"></i> Ethereum network
+            </div>
+            <div class="col-6">
+                <button class="btn btn-sm w-100" (click)="setSelectedMintNetwork('mainnet')"
+                    [ngClass]="{'btn-primary': rootVars.selectedMintNetwork.name =='mainnet', 'btn-outline-primary': rootVars.selectedMintNetwork.name !='mainnet'}">
+                    Mainnet
+                </button>
+            </div>
+            <div class="col-6">
+                <button class="btn btn-sm w-100 " (click)="setSelectedMintNetwork('rinkeby')"
+                    [ngClass]="{'btn-primary': rootVars.selectedMintNetwork.name =='rinkeby', 'btn-outline-primary': rootVars.selectedMintNetwork.name !='rinkeby'}">
+                    Rinkeby Test
+                </button>
+            </div>
+        </div>
+
+
+
+        <div class="row p-2 pt-4">
+            <div class="col-12 sectionHeader">
+                <i class="fa-solid fa-at"></i> Join the #bizelopment
+            </div>
+            <div class="col-6">
+                <a href="https://twitter.com/mmwirelesstech" class="btn btn-primary btn-sm w-100" target="_blank">
+                    <i class="fab fa-twitter"></i> Twitter
+                </a>
+            </div>
+            <div class="col-6">
+                <a href="https://www.instagram.com/mmwirelesstech/" class="btn btn-primary btn-sm w-100"
+                    target="_blank">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+            </div>
+        </div>
+
+
+        <div class="row p-2 pt-4" *ngIf="!rootVars.isCordova">
+            <div class="col-12 sectionHeader">
+                <i class="fa-solid fa-download"></i> Download app
+            </div>
+            <div class="col-6">
+                <a href="https://play.google.com/store/apps/details?id=com.mmwt.freenftmintapp" target="_blank">
+                    <img src="https://freeNFTMint.app/assets/images/GP.png"
+                        style="width: 100%;max-width: 200px; float: left;" />
+                </a>
+            </div>
+            <div class="col-6">
+                <a href="#">
+                    <img src="https://freeNFTMint.app/assets/images/AS.png"
+                        style="width: 100%;max-width: 200px; float: right;" />
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Steps Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">How It Works</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="fw-bold mb-4">
+                    The minted NFT will be an ERC-1155 token that lives on the Ethereum blockchain. You
+                    can then
+                    use it as your Twitter NFT profile picture, transfer it to a friend/family member, add images to
+                    your NFT
+                    photo frame, or list it for sale on an NFT marketplace.
+                </p>
+                <h3>Step 1</h3>
+                <p>Connect your wallet to the Ethereum Mainnet and connect it to the site</p>
+                <hr />
+
+                <h3>Step 2</h3>
+
+                <p>
+                    Upload an image (.jpg .png or .gif) from your device. The image will be stored onto <a
+                        href="https://ipfs.io/" target="_blank">IPFS</a> decentralized servers where it will never get
+                    removed
+                </p>
+                <hr />
+
+                <h3>Step 3 </h3>
+                <p>
+                    Give your image a name and a description. This will be public information added with your image that
+                    everyone can see
+                </p>
+                <hr />
+                <h3>Step 4 </h3>
+                <p>
+                    Enter the quantity of the image to mint. You can multiple copies of the same NFT that you can own,
+                    sell,
+                    or transfer
+                </p>
+                <hr />
+
+                <h3>Step 5 </h3>
+                <p>
+                    Agree to the terms and click the "Mint Image" button. This will start the upload process to IPFS and
+                    then
+                    trigger the mint transaction to your connected wallet App
+                </p>
+                <hr />
+
+                <h3>Step 6 </h3>
+                <p>
+                    Open your wallet App that you connected with to confirm and complete the mint transaction. You will
+                    have
+                    to pay the gas fees to mint
+                </p>
+                <hr />
+                <h3>Step 7 </h3>
+                <p>Find the NFT in your wallet</p>
+                <hr />
+                <br />
+                <h3 class="text-center">Happy Minting 😊</h3>
+                <br />
+                <div class="d-flex justify-content-center">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/B_zkJ__v8w4"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

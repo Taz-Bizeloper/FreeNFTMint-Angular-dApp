@@ -1,0 +1,103 @@
+.w-75-center {
+  width: 75%;
+  margin-left: 12.5%;
+}
+
+.w-50-center {
+  width: 50%;
+  margin-left: 25%;
+}
+
+
+#titleHeader {
+  font-size: 20pt;
+}
+
+@media (max-width:992px) {
+  .w-75-center {
+    width: 100%;
+    margin-left: unset;
+  }
+
+  .w-50-center {
+    width: 100%;
+    margin-left: unset;
+  }
+
+}
+
+:host {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  color: #333;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+
+.spacer {
+  flex: 1;
+}
+
+.toolbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  background-color: #1976d2;
+  color: white;
+  font-weight: 600;
+}
+
+.img-hex {
+  padding: 15px;
+  position: relative;
+  width: 90vw;
+  max-width: 600px;
+  max-height: 600px;
+  border-radius: 16px;
+  margin-bottom: 46px;
+}
+
+.img-hex img {
+  object-fit: cover;
+  clip-path: url(#clip-path);
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  height: 100%;
+  max-height: 560px;
+}
+
+.modal-body h3 {
+  text-align: left;
+  font-weight: bold;
+  color: #4C47F7;
+}
+
+
+
+.sectionHeader {
+  padding-left: 25px;
+  font-size: 12pt;
+  border-bottom: thin solid #ccc;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.overflow-x-hidden {
+  overflow-x: hidden !important;
+}
+
+.orange {
+  color: #FF6600;
+}
+

@@ -1,0 +1,38 @@
+<div class="d-flex w-100 justify-content-center align-items-center" *ngIf="!rootVars.isWalletConnected">
+    <div class="connectBtnDiv row">
+        <div [ngClass]="{'col-4':metaMaskExtProvider,'col-6':!metaMaskExtProvider }">
+            <button (click)='connectWallet("walletConnect")'
+                class="btn w-100 btn-round btn-lg btn-primary fw-bold mb-4 connectWalletbtn">
+                <img src="https://freeNFTMint.app/assets/images/wallet-connect.svg" /><br />
+                Connect With <br />WalletConnect
+            </button>
+        </div>
+        <div class="col-4" *ngIf="metaMaskExtProvider">
+            <button (click)='connectWallet("metamask")'
+                class="btn w-100 btn-round btn-lg btn-primary fw-bold mb-4 connectWalletbtn">
+                <img src="https://freeNFTMint.app/assets/images/metamask.png" /><br />
+                Connect With <br />Browser
+            </button>
+        </div>
+        <div [ngClass]="{'col-4':metaMaskExtProvider,'col-6':!metaMaskExtProvider }">
+            <button (click)='connectWallet("coinbase")' *ngIf="coinBaseProvider"
+                class="btn w-100 btn-round btn-lg btn-primary fw-bold connectWalletbtn">
+                <img src="https://freeNFTMint.app/assets/images/coinbase.png" /><br />
+                Connect With <br />Coinbase
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+<div *ngIf="rootVars.isWalletConnected">
+    <h2>
+        <i class="fa-solid fa-wallet"></i> Wallet Connected: {{rootVars.wallet.addressShort}}
+    </h2>
+    <a href="" class="text-danger fw-bold" (click)="disconnectWallet()">
+        Switch
+        Wallet
+    </a>
+    <br /><br />
+</div>

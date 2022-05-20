@@ -1,0 +1,37 @@
+/* You can add global styles to this file, and also import other style files */
+$primary: #4C47F7;
+$danger: #ff4136;
+@import "~bootstrap/scss/bootstrap";
+
+// Required
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+ 
+.btn {
+    border-radius: 25px !important;
+}
+
+body {
+  background-image: url(https://freeNFTMint.app/assets/images/bg-pattern.png) !important;
+  background-size: contain;
+  background-color: #4c47f7;
+}
+
+@font-face {
+  font-family: 'impact';
+  src: url('assets/webfonts/impact.ttf');
+}
+
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: impact;
+  letter-spacing: 1px;
+  font-weight: lighter;
+}
+
+
+p, button, div, span {
+    font-family: 'Arial Rounded MT'; 
+  }
