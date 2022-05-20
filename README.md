@@ -91,7 +91,8 @@ Note: If you add your own network you need to create your own custom button in t
 Note: If you are developing the depp-link minting functionality then you need to update the `cb-mint-networks.js` file located in `src` folder as well
 
 # Uploading image to IPFS
-We have an open API where you can send your NFT image metadata to be uploaded onto IPFS and get back the metadata IPFS hash. This integration is done through [NFT.storage](NFT.storage) on a server side. 
+We have an open API where you can send your NFT image metadata to be uploaded onto IPFS and get back the metadata IPFS hash. This integration is done through [NFT.storage](NFT.storage) on a server side. The [IPFS-Upload API repository can be found here](https://bizelop.app/IPFS-Upload) to use your own NFT.storage account and server 
+
 
 Feel free to use the API end point or create your own endpoint. 
 
@@ -100,6 +101,7 @@ https://freenftmint.app/api/UploadFile
 ```
 
 The endpoint accepts a FormData that expects to have a filename with the extension, metadata NFT name (appears as the name of the NFT), metadata NFT description (appears as the desciption of the NFT), and the file. The uploaded images are not stored on any centralized servers and are uploaded directly to IPFS. the response will be the IPFS hash metadata URL. You then need to construct the final URL. See code below
+
 
 ```
 //global-variables.ts
